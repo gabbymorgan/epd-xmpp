@@ -3,8 +3,21 @@
   "version": "1.0.0",
   "description": "Connect XMPP to a little waveshare EPD.",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon --env-file=.env index.js"
+  },
   "repository": "git@github.com:gabbymorgan/epd-xmpp.git",
   "author": "gabbymorgan <gabriellarosemorgan@gmail.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "@xmpp/client": "^0.13.5",
+    "@xmpp/debug": "^0.13.5",
+    "axios": "^1.10.0",
+    "bufferutil": "^4.0.9",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
 }
