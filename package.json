@@ -1,0 +1,10 @@
+{
+  "name": "epd-xmpp",
+  "version": "1.0.0",
+  "description": "Connect XMPP to a little waveshare EPD.",
+  "main": "index.js",
+  "repository": "git@github.com:gabbymorgan/epd-xmpp.git",
+  "author": "gabbymorgan <gabriellarosemorgan@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
