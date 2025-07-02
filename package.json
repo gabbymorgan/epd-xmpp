@@ -2,9 +2,9 @@
   "name": "epd-xmpp",
   "version": "1.0.0",
   "description": "Connect XMPP to a little waveshare EPD.",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "nodemon --env-file=.env index.js"
+    "start": "node --experimental-strip-types --env-file=.env index.ts"
   },
   "repository": "git@github.com:gabbymorgan/epd-xmpp.git",
   "author": "gabbymorgan <gabriellarosemorgan@gmail.com>",
