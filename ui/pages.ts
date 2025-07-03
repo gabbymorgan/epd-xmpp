@@ -7,10 +7,13 @@ export default class Router {
   currentPage: Page | null;
   prevPage: Page | null;
 
-  constructor(pages) {
+  constructor(pages: Pages) {
     this.pages = pages;
     this.currentPage = null;
     this.navigateTo("contacts");
+    for (let pageIndex in this.pages) {
+      xmppClient.on("stanza", this.pages[pageIndex].xmppStanzaHandler);
+    }
   }
 
   navigateTo(key: pageKey) {
@@ -25,8 +28,6 @@ export default class Router {
       const touchData = JSON.parse(data);
       this.currentPage.touchHandler(touchData);
     });
-
-    xmppClient.on("stanza", this.currentPage.xmppStanzaHandler);
   }
 }
 
@@ -59,6 +60,6 @@ type pageTitle = "Compose" | "Contacts" | "Conversation";
 
 type pageKey = "compose" | "contacts" | "conversation";
 
-type Pages = {
+interface Pages {
   [key: string]: Page;
 };
