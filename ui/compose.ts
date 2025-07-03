@@ -1,7 +1,10 @@
-import { xml } from "@xmpp/client";
+import fs from "fs";
+import { Page } from "./pages.ts";
 
-export const composeMessage = async (address, message: string) => xml(
-    message,
-    { type: "chat", to: address },
-    xml("body", {}, "bot online")
-  );
+export default class Compose extends Page {
+  constructor() {
+    super();
+    this.title = "Compose";
+    // this.background = fs.readFileSync("assets/compose-display.bmp");
+  }
+}

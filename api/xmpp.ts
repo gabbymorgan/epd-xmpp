@@ -8,7 +8,7 @@ export const xmppClient = client({
   password: process.env.PASSWORD,
 });
 
-debug(xmppClient, true);
+// debug(xmppClient, true);
 
 xmppClient.on("error", (err) => {
   console.error(err);
