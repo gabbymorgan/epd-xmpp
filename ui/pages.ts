@@ -1,27 +1,24 @@
-import { requestRender, screenWebSocket, TouchData } from "../api/epd.ts";
+import { requestRender, screenWebSocket } from "../api/epd.ts";
+import type { TouchData } from "../api/epd.ts";
 
 export default class Router {
   pages: Pages;
-  currentPage: Page
+  currentPage: Page | null;
   prevPage: Page | null;
 
   constructor(pages) {
     this.pages = pages;
-    this.currentPage = this.pages.contacts;
-
-    screenWebSocket.on("message", (data) => {
-      const touchData = JSON.parse(data);
-      this.currentPage.touchHandler(touchData);
-    });
+    this.currentPage = null;
+    this.navigateTo("contacts");
   }
 
   navigateTo(key: pageKey) {
     this.prevPage = this.currentPage;
     this.currentPage = this.pages[key];
-    this.prevPage.dismount();
+    this.prevPage?.dismount();
     this.currentPage.mount();
 
-    screenWebSocket.removeAllListeners("message")
+    screenWebSocket.removeAllListeners("message");
 
     screenWebSocket.on("message", (data) => {
       const touchData = JSON.parse(data);
@@ -32,7 +29,7 @@ export default class Router {
 
 export class Page {
   title: pageTitle;
-  background: Buffer<ArrayBuffer>;
+  background: string;
 
   constructor() {}
 
@@ -57,6 +54,6 @@ type pageTitle = "Compose" | "Contacts" | "Conversation";
 
 type pageKey = "compose" | "contacts" | "conversation";
 
-interface Pages {
+type Pages = {
   [key: string]: Page;
-}
+};

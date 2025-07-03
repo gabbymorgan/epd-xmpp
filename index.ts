@@ -10,11 +10,17 @@ import Compose from "./ui/compose.ts";
 import Contacts from "./ui/contacts.ts";
 import Conversation from "./ui/conversation.ts";
 
-
 const router = new Router({
   compose: new Compose(),
   contacts: new Contacts(),
   conversation: new Conversation(),
+});
+
+screenWebSocket.on("open", async function () {
+  while (true) {
+    screenWebSocket.send("1");
+    await sleep(20);
+  }
 });
 
 await xmppClient.start();
@@ -22,8 +28,3 @@ await xmppClient.start();
 //   `${process.env.USERNAME}@${process.env.DOMAIN}`,
 //   "all systems go!"
 // );
-
-screenWebSocket.on("open", function() {
-  router.navigateTo("contacts")
-})
-

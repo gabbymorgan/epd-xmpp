@@ -1,5 +1,7 @@
 import axios from "axios";
 import WebSocket from "ws";
+import fs from "fs";
+import FormData from "form-data";
 
 export const screenWebSocket = new WebSocket(
   "ws://192.168.8.245:8000/screen_interaction",
@@ -8,14 +10,34 @@ export const screenWebSocket = new WebSocket(
   }
 );
 
-export const requestRender = async (image) => {
-  const response = await axios.post("http://192.168.8.245/request_render", {
-    image,
-  });
-  console.log(response);
+export const requestRender = async (imagePath: string) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", fs.createReadStream(imagePath), "image.bmp");
+    formData.append("description", "A test image upload");
+    const response = await axios.post(
+      "http://192.168.8.245:8000/request_render",
+      formData,
+      {
+        headers: { ...formData.getHeaders() },
+      }
+    );
+    console.log(response);
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
+    console.log(error.config);
+  }
 };
 
-export interface TouchData {
+export type TouchData = {
   last_touched: number | undefined;
   is_touching: boolean;
   has_been_touching: boolean;
@@ -28,4 +50,5 @@ export interface TouchData {
   did_tap: boolean;
   tap_x: number | undefined;
   tap_y: number | undefined;
-}
+};
+

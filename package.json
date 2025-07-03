@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Connect XMPP to a little waveshare EPD.",
   "main": "index.ts",
+  "type": "module",
   "scripts": {
-    "start": "node --experimental-strip-types --env-file=.env index.ts"
+    "start": "node --experimental-strip-types --env-file=.env index.ts",
+    "build": ""
   },
   "repository": "git@github.com:gabbymorgan/epd-xmpp.git",
   "author": "gabbymorgan <gabriellarosemorgan@gmail.com>",
@@ -18,8 +20,11 @@
     "ws": "^8.18.3"
   },
   "devDependencies": {
+    "@types/form-data": "^2.5.2",
     "@types/node": "^24.0.10",
     "@types/ws": "^8.18.1",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }
