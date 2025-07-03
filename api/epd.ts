@@ -1,6 +1,5 @@
 import axios from "axios";
 import WebSocket from "ws";
-import fs from "fs";
 import FormData from "form-data";
 
 export const screenWebSocket = new WebSocket(
@@ -10,10 +9,10 @@ export const screenWebSocket = new WebSocket(
   }
 );
 
-export const requestRender = async (imagePath: string) => {
+export const requestRender = async (image) => {
   try {
     const formData = new FormData();
-    formData.append("file", fs.createReadStream(imagePath), "image.bmp");
+    formData.append("file", image, "image.bmp");
     formData.append("description", "A test image upload");
     const response = await axios.post(
       "http://192.168.8.245:8000/request_render",
@@ -22,7 +21,6 @@ export const requestRender = async (imagePath: string) => {
         headers: { ...formData.getHeaders() },
       }
     );
-    console.log(response);
   } catch (error) {
     if (error.response) {
       console.log(error.response.data);

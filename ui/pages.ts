@@ -1,5 +1,6 @@
 import { requestRender, screenWebSocket } from "../api/epd.ts";
 import type { TouchData } from "../api/epd.ts";
+import { xmppClient } from "../api/xmpp.ts";
 
 export default class Router {
   pages: Pages;
@@ -24,6 +25,8 @@ export default class Router {
       const touchData = JSON.parse(data);
       this.currentPage.touchHandler(touchData);
     });
+
+    xmppClient.on("stanza", this.currentPage.xmppStanzaHandler);
   }
 }
 
@@ -48,6 +51,8 @@ export class Page {
       console.log("swipe!");
     }
   }
+
+  xmppStanzaHandler(stanza) {}
 }
 
 type pageTitle = "Compose" | "Contacts" | "Conversation";

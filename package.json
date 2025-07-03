@@ -17,6 +17,7 @@
     "@xmpp/debug": "^0.13.5",
     "axios": "^1.10.0",
     "bufferutil": "^4.0.9",
+    "canvas": "^3.1.2",
     "ws": "^8.18.3"
   },
   "devDependencies": {
